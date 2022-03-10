@@ -322,6 +322,10 @@ if [[ ${workspace_id} != "" ]]; then
     --env logging_kernel_format=graylog"
 fi
 
+echo "`date` INFO: Configuring screts path $(dirname ${admin_password_file})"
+echo "`date` INFO: Configuring admin password file ${admin_password_file}"
+echo "`date` INFO: Configuring tls certificate file ${tls_certificate_file}"
+
 #Define a create script
 tee /root/docker-create <<-EOF
 #!/bin/bash
@@ -344,6 +348,7 @@ docker create \
   --env "service_semp_tlsport=1943" \
   --env "system_scaling_maxconnectioncount=${max_connections}" \
   --env "system_scaling_maxqueuemessagecount=${max_queue_messages}" \
+  --env 'tls_servercertificate_filepath==$(basename ${tls_certificate_file}) \
   ${logging_config} \
   ${redundancy_config} \
   --name=solace ${SOLACE_IMAGE_ID}
