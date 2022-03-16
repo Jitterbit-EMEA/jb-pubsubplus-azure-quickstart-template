@@ -31,6 +31,9 @@
     },
     "deploymentModel": {
       "value": "HighAvailability"
+    },
+    "lbSkuName": {
+      "value": "Standard"
     }
   }
 }
